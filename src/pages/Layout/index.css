@@ -1,0 +1,126 @@
+.main-layout {
+    min-height: 100vh;
+}
+
+.logo {
+    flex: 1;
+    text-align: center;
+    letter-spacing: 4px;
+}
+
+.logo h1 {
+    color: #fff;
+    font-style: italic;
+    font-size: 32px;
+    font-weight: bold;
+    text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.8);
+    background: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 0;
+}
+
+.header-content {
+    height: 64px;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: url('http://localhost:3000/titlebg.png');
+    background-color: #4375b7;
+    /* filter: drop-shadow(4px 4px 6px #01226e); */
+    background-size: cover;
+    background-position: center;
+    opacity: 0.8;
+}
+
+.header-content>* {
+    opacity: 1;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.collapse-button {
+    padding: 0 24px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s;
+    background: none;
+    border: none;
+}
+
+.collapse-button:hover {
+    color: #1890ff;
+}
+
+.user-dropdown {
+    cursor: pointer;
+    padding: 0 12px;
+}
+
+.username {
+    margin-left: 8px;
+    color: #fff;
+}
+
+.main-content {
+    overflow: auto;
+    height: calc(100vh - 64px);
+}
+
+
+/* 侧边栏样式 */
+
+.ant-layout-sider {
+    box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
+}
+
+.ant-menu-item {
+    margin: 4px 8px !important;
+    border-radius: 4px;
+}
+
+.ant-menu-item:hover {
+    color: #1890ff !important;
+}
+
+.ant-menu-item-selected {
+    background-color: #e6f7ff !important;
+    color: #1890ff !important;
+}
+
+
+/* 用户下拉菜单样式 */
+
+.ant-dropdown-menu-item {
+    padding: 8px 16px !important;
+}
+
+.ant-dropdown-menu-item:hover {
+    background-color: #f5f5f5 !important;
+}
+
+.ant-dropdown-menu-item-icon {
+    margin-right: 8px;
+}
+
+
+/* 响应式布局 */
+
+@media screen and (max-width: 768px) {
+    .username {
+        display: none;
+    }
+    .logo h1 {
+        font-size: 16px;
+    }
+}

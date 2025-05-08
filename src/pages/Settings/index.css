@@ -1,0 +1,44 @@
+.settings-page {
+    padding: 24px;
+}
+
+.settings-card {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.settings-card .ant-card-head {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.settings-card .ant-card-head-title {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.settings-card .ant-divider {
+    margin: 24px 0 16px;
+    color: #666;
+}
+
+.settings-card .ant-form-item {
+    margin-bottom: 24px;
+}
+
+.settings-card .ant-form-item-label>label {
+    font-weight: 500;
+}
+
+.settings-card .ant-select {
+    width: 100%;
+    max-width: 300px;
+}
+
+.settings-card .ant-input {
+    max-width: 300px;
+}
+
+.settings-card .ant-form-item:last-child {
+    margin-top: 32px;
+    margin-bottom: 0;
+}

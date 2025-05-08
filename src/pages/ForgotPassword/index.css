@@ -1,0 +1,117 @@
+.forgot-password-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f5f7fa;
+}
+
+.forgot-password-content {
+    display: flex;
+    width: 1000px;
+    height: 600px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.forgot-password-left {
+    flex: 1;
+    background: #f0f5ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.forgot-password-illustration {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+}
+
+.forgot-password-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+}
+
+.forgot-password-form-container {
+    width: 100%;
+    max-width: 360px;
+}
+
+.forgot-password-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.forgot-password-steps {
+    margin-bottom: 32px;
+}
+
+.verification-code-container {
+    display: flex;
+    gap: 8px;
+}
+
+.verification-code-container .ant-input-affix-wrapper {
+    flex: 1;
+}
+
+.send-code-button {
+    width: 120px;
+    height: 48px;
+}
+
+.ant-input-affix-wrapper {
+    height: 48px;
+    border-radius: 8px;
+    border: 1px solid #e5e6eb;
+}
+
+.ant-input-affix-wrapper:hover,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+    border-color: #1890ff;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.1);
+}
+
+.input-icon {
+    color: #bfbfbf;
+    font-size: 16px;
+}
+
+.submit-button {
+    height: 48px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 24px;
+    background: #1890ff;
+}
+
+.submit-button:hover {
+    background: #40a9ff;
+}
+
+.forgot-password-footer {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.back-to-login {
+    color: #1890ff;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.back-to-login:hover {
+    color: #40a9ff;
+}

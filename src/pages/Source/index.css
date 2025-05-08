@@ -1,0 +1,52 @@
+.sourceManagement {
+    padding: 24px;
+}
+
+.sourceManagement .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.sourceManagement .header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.sourceManagement .ant-tabs {
+    background: #fff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.sourceManagement .ant-table {
+    background: #fff;
+}
+
+.sourceManagement .ant-table-thead>tr>th {
+    background: #fafafa;
+    font-weight: 500;
+}
+
+.sourceManagement .ant-table-tbody>tr:hover>td {
+    background: #f5f5f5;
+}
+
+.sourceManagement .ant-btn {
+    margin-right: 8px;
+}
+
+.sourceManagement .ant-form-item {
+    margin-bottom: 16px;
+}
+
+.sourceManagement .ant-modal-body {
+    padding: 24px;
+}
+
+.sourceManagement .ant-tabs-nav {
+    margin-bottom: 24px;
+}

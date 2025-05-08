@@ -1,0 +1,65 @@
+.gis-container {
+    height: 100%;
+    padding: 24px;
+    background: #f0f2f5;
+}
+
+.map-card {
+    height: calc(100vh - 180px);
+    margin: -24px;
+}
+
+.map-card .ant-card-body {
+    height: calc(100% - 57px);
+    padding: 0;
+}
+
+.map-container {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* 地图控件样式调整 */
+
+.amap-toolbar {
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.amap-scale {
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.amap-maptype {
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.amap-hawkeye {
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+/* 响应式布局 */
+
+@media screen and (max-width: 768px) {
+    .gis-container {
+        padding: 12px;
+    }
+    .map-card {
+        height: calc(100vh - 156px);
+        margin: -12px;
+    }
+}
+
+.gis-page {
+    padding: 24px;
+}
+
+.gis-page .ant-typography {
+    margin-bottom: 24px;
+}

@@ -1,0 +1,27 @@
+.container {
+    padding: 24px;
+}
+
+.header {
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ant-upload-list-picture-card .ant-upload-list-item {
+    padding: 8px;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+}
+
+.ant-upload-list-picture-card .ant-upload-list-item-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.ant-upload-list-picture-card .ant-upload-list-item-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
