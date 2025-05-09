@@ -16,6 +16,7 @@ import TrendAnalysis from "../pages/TrendAnalysis";
 import ManualLHTFenceng from "../pages/ManualLHTFenceng";
 import { createBrowserRouter } from 'react-router-dom';
 import FingerprintPage from '../pages/Fingerprint';
+import Traceability from "../Traceability";
 
 const Router = () => {
   // 判断是否已登录或处于调试模式
@@ -57,6 +58,7 @@ const Router = () => {
           <Route path="trend-analysis" element={<TrendAnalysis />} />
           <Route path="prediction" element={<div>预测数据管理</div>} />
           <Route path="dynamic-path" element={<video src="/dynamic.mkv" controls={false} loop={true} autoPlay={true}></video>} />
+          <Route path="traceability-model" element={<Traceability />} />
           <Route path="source" element={<SourceManagement />}>
             <Route path="fingerprint" element={<FingerprintPage />} />
             <Route path="fingerprint-db" element={<FingerprintPage />} />

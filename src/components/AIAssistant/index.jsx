@@ -9,8 +9,8 @@ const { TextArea } = Input;
 const AIAssistant = () => {
   const [visible, setVisible] = useState(false);
   const [position, setPosition] = useState({
-    x: window.innerWidth - 80,
-    y: window.innerHeight - 100
+    x: window.innerWidth - 150,
+    y: window.innerHeight - 150
   });
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
@@ -37,8 +37,8 @@ const AIAssistant = () => {
   // 处理拖动
   const handleMouseMove = (e) => {
     if (isDragging) {
-      const newX = Math.min(Math.max(0, e.clientX - dragOffset.x), window.innerWidth - 50);
-      const newY = Math.min(Math.max(0, e.clientY - dragOffset.y), window.innerHeight - 50);
+      const newX = Math.min(Math.max(0, e.clientX - dragOffset.x), window.innerWidth - 120);
+      const newY = Math.min(Math.max(0, e.clientY - dragOffset.y), window.innerHeight - 120);
       setPosition({ x: newX, y: newY });
     }
   };
@@ -64,8 +64,8 @@ const AIAssistant = () => {
   useEffect(() => {
     const handleResize = () => {
       setPosition({
-        x: window.innerWidth - 80,
-        y: window.innerHeight - 100
+        x: window.innerWidth - 200,
+        y: window.innerHeight - 200
       });
     };
 
@@ -125,8 +125,6 @@ const AIAssistant = () => {
       <Button
         ref={buttonRef}
         type="primary"
-        shape="circle"
-        icon={<RobotOutlined />}
         size="large"
         className="ai-assistant-button"
         style={{
@@ -136,6 +134,8 @@ const AIAssistant = () => {
           cursor: isDragging ? 'grabbing' : 'grab',
           zIndex: 1000,
           padding: 0,
+          background: "url('https://static-answer.eol.cn/static/images/4482F4/jqr-zhen.png') no-repeat",
+
         }}
         onMouseDown={handleMouseDown}
         onClick={() => !isDragging && setVisible(true)}
