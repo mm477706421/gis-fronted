@@ -185,16 +185,13 @@ const ManualLHTFenceng = () => {
                 // 处理数据
                 let processedData = data.map(item => ({
                     id: item.id,
-                    dateTime: new Date(item.date).toLocaleString('zh-CN', {
+                    dateTime: new Date(item.date_time).toLocaleString('zh-CN', {
                         year: 'numeric',
                         month: '2-digit',
                         day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        hour12: false
                     }),
-                    monitoringPoint: item.monitoringPoint,
-                    sbConcentration: item.sbConcentration
+                    monitoringPoint: item.monitoring_point,
+                    sbConcentration: item.sb_concentration
                 }));
 
                 // 提取唯一的监测断面
@@ -498,7 +495,6 @@ const ManualLHTFenceng = () => {
                             columns={mergedColumns}
                             rowClassName="editable-row"
                             pagination={{
-                                pageSize: 10,
                                 showSizeChanger: true,
                                 showQuickJumper: true
                             }}

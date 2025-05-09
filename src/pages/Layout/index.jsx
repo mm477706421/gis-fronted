@@ -195,31 +195,35 @@ const MainLayout = () => {
                     {
                         key: 'source',
                         icon: <SearchOutlined/>,
-                        label: '溯源管理',
+                        label: '溯源信息',
                         children: [
                             {
                                 key: 'remote-sensing',
-                                label: '遥感溯源',
+                                label: '遥感监测信息',
                                 children: [
-                                    {key: 'remote-info', label: '遥感信息'},
-                                    {key: 'remote-image', label: '溯源图像'},
-                                    {key: 'remote-source', label: '溯源信息'},
+                                    {key: 'data-integration', label: '多元数据整合'},
+                                    {key: 'meteorological-data', label: '气象数据'},
+                                    {key: 'model-visualization', label: '遥感监测模型可视化'},
+                                    {key: 'water-quality', label: '遥感水质监测数据'},
                                 ],
                             },
                             {
-                                key: 'fingerprint',
-                                label: '指纹图谱溯源',
+                                key: 'traceability',
+                                label: '溯源信息',
                                 children: [
+                                    {key: 'traceability-model', label: '溯源模型可视化'},
+                                    {key: 'dynamic-path', label: '动态溯源路径追踪'},
                                     {
-                                        key: 'fingerprint-db',
-                                        label: '水质指纹数据库',
+                                        key: 'pollution-source',
+                                        label: '污染源位置数据库',
                                         children: [
-                                            {key: 'fingerprint-type-1', label: '图谱种类1'},
-                                            {key: 'fingerprint-type-2', label: '图谱种类2'},
-                                            {key: 'fingerprint-type-3', label: '图谱种类3'},
+                                            {key: 'waste-piles', label: '流域废渣堆信息'},
+                                            {key: 'mine-caves', label: '流域矿硐信息'},
+                                            {key: 'enterprises', label: '周边企业信息'},
+                                            {key: 'antimony-mines', label: '锑矿'},
                                         ],
                                     },
-                                    {key: 'fingerprint-analysis', label: '水质指纹分析'},
+                                    {key: 'impact-analysis', label: '溯源影响分析'},
                                 ],
                             },
                         ],

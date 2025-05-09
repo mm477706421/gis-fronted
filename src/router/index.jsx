@@ -31,43 +31,6 @@ const Router = () => {
     return children;
   };
 
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <MainLayout />,
-      children: [
-        {
-          path: 'monitoring',
-          element: <div>监测数据管理</div>
-        },
-        {
-          path: 'manual-site:tableName',
-          element: <MonitoringPage />
-        },
-        {
-          path: 'auto-site:tableName',
-          element: <MonitoringPage />
-        },
-        {
-          path: 'pred-site:tableName',
-          element: <MonitoringPage />
-        },
-        {
-          path: 'fingerprint',
-          element: <FingerprintPage />
-        },
-        {
-          path: 'trend-analysis',
-          element: <TrendAnalysis />
-        }
-      ]
-    },
-    {
-      path: '/login',
-      element: <Login />
-    }
-  ]);
-
   return (
     <BrowserRouter>
       <Routes>
@@ -93,6 +56,7 @@ const Router = () => {
           <Route path="pred-site/:stationId" element={<MonitoringPage />} />
           <Route path="trend-analysis" element={<TrendAnalysis />} />
           <Route path="prediction" element={<div>预测数据管理</div>} />
+          <Route path="dynamic-path" element={<video src="/dynamic.mkv" controls={false} loop={true} autoPlay={true}></video>} />
           <Route path="source" element={<SourceManagement />}>
             <Route path="fingerprint" element={<FingerprintPage />} />
             <Route path="fingerprint-db" element={<FingerprintPage />} />
