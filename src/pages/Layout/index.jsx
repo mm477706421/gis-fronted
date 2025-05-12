@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Avatar, Dropdown, Layout, Menu, message, Space, theme} from 'antd';
+import {Avatar, Dropdown, Layout, Menu, message, Space, theme, Tabs} from 'antd';
 import {
     AlertOutlined,
     DashboardOutlined,
@@ -14,6 +14,7 @@ import {
     UserOutlined,
     WarningOutlined,
     ExperimentOutlined,
+    CloseOutlined,
 } from '@ant-design/icons';
 import {Outlet, useLocation, useNavigate} from 'react-router-dom';
 import './index.css';
@@ -24,11 +25,86 @@ const {Header, Sider, Content} = Layout;
 const MainLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [menuItems, setMenuItems] = useState([]);
+    const [activeTab, setActiveTab] = useState('');
+    const [tabs, setTabs] = useState([]);
     const navigate = useNavigate();
     const location = useLocation();
     const {
         token: {colorBgContainer, borderRadiusLG},
     } = theme.useToken();
+
+    // 监听 URL 路径变化并更新标签页
+    useEffect(() => {
+        const path = location.pathname;
+        if (path === '/gis' || path === '/dynamic-path') {
+            setCollapsed(true);
+        } else {
+            setCollapsed(false);
+        }
+
+        // 更新标签页
+        const currentPath = location.pathname;
+        const currentTitle = getPageTitle(currentPath);
+        
+        if (currentPath && currentTitle) {
+            setActiveTab(currentPath);
+            setTabs(prevTabs => {
+                const existingTab = prevTabs.find(tab => tab.key === currentPath);
+                if (!existingTab) {
+                    return [...prevTabs, { key: currentPath, label: currentTitle }];
+                }
+                return prevTabs;
+            });
+        }
+    }, [location.pathname]);
+
+    // 获取页面标题
+    const getPageTitle = (path) => {
+        const pathMap = {
+            '/gis': 'GIS地图展示',
+            '/monitoring': '监测数据管理',
+            '/prediction': '预测数据管理',
+            '/source': '溯源信息',
+            '/pollution': '污染源管理',
+            '/report': '工作报告生成',
+            '/emergency': '应急管理',
+            '/users': '用户管理',
+            '/profile': '个人中心',
+            '/settings': '系统设置',
+        };
+
+        // 处理动态路由
+        if (path.includes('/auto-site/')) {
+            return '自动监测站点';
+        } else if (path.includes('/manual-site/')) {
+            return '手动监测站点';
+        } else if (path.includes('/pred-site/')) {
+            return '预测站点';
+        }
+
+        return pathMap[path] || path;
+    };
+
+    // 处理标签页切换
+    const handleTabChange = (key) => {
+        setActiveTab(key);
+        navigate(key);
+    };
+
+    // 处理标签页关闭
+    const handleTabClose = (targetKey, e) => {
+        e.stopPropagation();
+        const targetIndex = tabs.findIndex(tab => tab.key === targetKey);
+        const newTabs = tabs.filter(tab => tab.key !== targetKey);
+        
+        if (newTabs.length && targetKey === activeTab) {
+            const newActiveKey = newTabs[targetIndex === newTabs.length ? targetIndex - 1 : targetIndex].key;
+            setActiveTab(newActiveKey);
+            navigate(newActiveKey);
+        }
+        
+        setTabs(newTabs);
+    };
 
     // 加载站点数据
     useEffect(() => {
@@ -87,9 +163,9 @@ const MainLayout = () => {
                     });
 
                 const autoStations = allTables
-                    .filter(table => !table.startsWith('manual_') && 
-                                   !table.startsWith('excess_') && 
-                                   !table.startsWith('pre_') && 
+                    .filter(table => !table.startsWith('manual_') &&
+                                   !table.startsWith('excess_') &&
+                                   !table.startsWith('pre_') &&
                                    table !== 'station_message')
                     .map(table => {
                         const stationName = table.split('_')[0].toUpperCase();
@@ -189,7 +265,7 @@ const MainLayout = () => {
                           ...preStations.map(station => ({
                             key: `pred-site/${station.id}`,
                             label: station.stationName,
-                           })),  
+                           })),
                         ],
                     },
                     {
@@ -217,10 +293,10 @@ const MainLayout = () => {
                                         key: 'pollution-source',
                                         label: '污染源位置数据库',
                                         children: [
-                                            {key: 'waste-piles', label: '流域废渣堆信息'},
-                                            {key: 'mine-caves', label: '流域矿硐信息'},
-                                            {key: 'enterprises', label: '周边企业信息'},
-                                            {key: 'antimony-mines', label: '锑矿'},
+                                            {key: 'pollution-source/waste-piles', label: '流域废渣堆信息'},
+                                            {key: 'pollution-source/mine-caves', label: '流域矿硐信息'},
+                                            {key: 'pollution-source/enterprises', label: '周边企业信息'},
+                                            {key: 'pollution-source/antimony-mines', label: '锑矿'},
                                         ],
                                     },
                                     {key: 'impact-analysis', label: '溯源影响分析'},
@@ -243,9 +319,9 @@ const MainLayout = () => {
                         icon: <AlertOutlined/>,
                         label: '应急管理',
                         children: [
-                            {key: 'emergency-site', label: '站点基本信息'},
-                            {key: 'emergency-medication', label: '加药点基本信息'},
-                            {key: 'emergency-personnel', label: '应急人员管理'},
+                            {key: 'emergency/site', label: '站点基本信息'},
+                            {key: 'emergency/medication', label: '加药点基本信息'},
+                            {key: 'emergency/personnel', label: '应急人员管理'},
                         ],
                     },
                     {
@@ -293,6 +369,10 @@ const MainLayout = () => {
     const handleMenuClick = ({key}) => {
         if (key.startsWith('fingerprint')) {
             navigate(`/source/${key}`);
+        } else if (key.startsWith('pollution-source/')) {
+            navigate(`/${key}`);
+        } else if (key.startsWith('emergency/')) {
+            navigate(`/${key}`);
         } else {
             navigate(`/${key}`);
         }
@@ -309,13 +389,13 @@ const MainLayout = () => {
     };
 
     return (
-        <Layout className="main-layout">
-            <AIAssistant/>
-            <Sider trigger={null} collapsible collapsed={collapsed} theme="light">
-
+        <Layout style={{minHeight: '100vh'}}>
+            <Sider trigger={null} collapsible collapsed={collapsed} style={{background: colorBgContainer}}>
+                <div className="demo-logo-vertical"/>
                 <Menu
+                    theme="light"
                     mode="inline"
-                    selectedKeys={[location.pathname.split('/')[1]]}
+                    selectedKeys={[location.pathname]}
                     items={menuItems}
                     onClick={handleMenuClick}
                 />
@@ -335,34 +415,35 @@ const MainLayout = () => {
                                 <h1>河流数据管理系统</h1>
                             </div>
                         </div>
-                        <div className="header-right">
-                            <Dropdown
-                                menu={{
-                                    items: userMenuItems,
-                                    onClick: handleUserMenuClick,
-                                }}
-                                placement="bottomRight"
-                            >
-                                <Space className="user-dropdown">
+                        <Space>
+                            <AIAssistant/>
+                            <Dropdown menu={{items: userMenuItems, onClick: handleUserMenuClick}}>
+                                <Space style={{cursor: 'pointer'}}>
                                     <Avatar icon={<UserOutlined/>}/>
-                                    <span className="username">管理员</span>
+                                    <span>{localStorage.getItem('username') || '用户'}</span>
                                 </Space>
                             </Dropdown>
-                        </div>
+                        </Space>
                     </div>
                 </Header>
-                <Content className="main-content">
-                    <div
-                        style={{
-                            margin: '24px 16px',
-                            padding: 24,
-                            background: colorBgContainer,
-                            borderRadius: borderRadiusLG,
-                            minHeight: 280,
+                <Content style={{margin: '24px 16px', padding: 24, background: colorBgContainer, borderRadius: borderRadiusLG}}>
+                    <Tabs
+                        hideAdd
+                        onChange={handleTabChange}
+                        activeKey={activeTab}
+                        type="editable-card"
+                        onEdit={(targetKey, action) => {
+                            if (action === 'remove') {
+                                handleTabClose(targetKey, { stopPropagation: () => {} });
+                            }
                         }}
-                    >
-                        <Outlet/>
-                    </div>
+                        items={tabs.map(tab => ({
+                            key: tab.key,
+                            label: tab.label,
+                            closable: tabs.length > 1,
+                        }))}
+                    />
+                    <Outlet/>
                 </Content>
             </Layout>
         </Layout>

@@ -54,6 +54,7 @@ class MapContainer extends Component {
 
       // 创建地图实例
       this.map = new this.AMap.Map("container", {
+        mapStyle: "amap://styles/fresh",
         // rotateEnable: false,
         // pitchEnable: true,
         zoom: 7,
@@ -67,7 +68,6 @@ class MapContainer extends Component {
 
       // 添加控件
       this.map.addControl(new this.AMap.ToolBar());
-      this.map.addControl(new this.AMap.HawkEye());
       this.map.addControl(new this.AMap.MapType());
 
       // 创建图层
@@ -133,18 +133,18 @@ class MapContainer extends Component {
     try {
       const response = await fetch("http://127.0.0.1:8080/api/list_station_message");
       const stations = await response.json();
-      
+
       // 清除现有标记
       this.clearMarkers();
-      
+
       // 创建新标记
       stations.forEach(station => {
         const markerContent = `
           <div class="${styles.customContentMarker}">
-            <img src="//a.amap.com/jsapi_demos/static/demo-center/icons/dir-via-marker.png">
+            <img src="/mark.png" style="width: 28px;height: 40px">
           </div>
         `;
-        
+
         const position = new this.AMap.LngLat(station.longitude, station.latitude);
         const marker = new this.AMap.Marker({
           position: position,
@@ -152,7 +152,7 @@ class MapContainer extends Component {
           offset: new this.AMap.Pixel(-13, -30),
           title: station.stationName
         });
-        
+
         // 添加点击事件
         marker.on('click', () => {
           this.setState({
@@ -163,7 +163,7 @@ class MapContainer extends Component {
             this.loadRealTimeData(station.id);
           });
         });
-        
+
         this.map.add(marker);
         this.markers.push(marker);
       });
@@ -272,7 +272,52 @@ class MapContainer extends Component {
             地形图
           </Checkbox>
         </div> */}
-        <div id="container" style={{ height: "70vh" }}></div>
+        <div id="container" style={{ height: "90vh" }}></div>
+
+        {/* 图例说明 */}
+        <div style={{
+          position: 'fixed',
+          right: 30,
+          bottom: 30,
+          width: 100,
+          background: 'rgba(60, 100, 150, 0.85)',
+          borderRadius: 16,
+          padding: '12px 16px',
+          color: '#fff',
+          fontSize: 12,
+          zIndex: 1000,
+          boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
+        }}>
+          <div style={{fontWeight: 'bold', fontSize: 14, marginBottom: 8, textAlign: 'center'}}>图例说明</div>
+          <div style={{display: 'flex', alignItems: 'center', marginBottom: 4}}>
+            <div style={{width: 24, height: 12, background: '#b6f3ff', marginRight: 8, borderRadius: 2}}></div>
+            Ⅰ类
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', marginBottom: 4}}>
+            <div style={{width: 24, height: 12, background: '#00c3ff', marginRight: 8, borderRadius: 2}}></div>
+            Ⅱ类
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', marginBottom: 4}}>
+            <div style={{width: 24, height: 12, background: '#00ff00', marginRight: 8, borderRadius: 2}}></div>
+            Ⅲ类
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', marginBottom: 4}}>
+            <div style={{width: 24, height: 12, background: '#ffe600', marginRight: 8, borderRadius: 2}}></div>
+            Ⅳ类
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', marginBottom: 4}}>
+            <div style={{width: 24, height: 12, background: '#ff9900', marginRight: 8, borderRadius: 2}}></div>
+            Ⅴ类
+          </div>
+          <div style={{display: 'flex', alignItems: 'center', marginBottom: 4}}>
+            <div style={{width: 24, height: 12, background: '#ff0000', marginRight: 8, borderRadius: 2}}></div>
+            劣Ⅴ类
+          </div>
+          <div style={{display: 'flex', alignItems: 'center'}}>
+            <div style={{width: 24, height: 12, background: '#999', marginRight: 8, borderRadius: 2, border: '1px solid #fff'}}></div>
+            无数据
+          </div>
+        </div>
 
         <Modal
           title={currentStation?.stationName || "站点信息"}

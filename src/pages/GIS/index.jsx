@@ -6,11 +6,8 @@ import './index.css';
 
 const GISMap = () => {
   return (
-    <Card
-        title={"GIS 地图展示"}>
       <MapContainer />
-    </Card>
   );
 };
 
-export default GISMap; 
+export default GISMap;

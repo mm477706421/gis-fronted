@@ -531,11 +531,6 @@ const MonitoringPage = () => {
             },
         },
         colorField: 'category',
-        label: {
-            style: {
-                fill: '#000',
-            },
-        },
         smooth: true,
         connectNulls: {
             connect: true,

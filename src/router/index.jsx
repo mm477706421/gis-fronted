@@ -16,7 +16,10 @@ import TrendAnalysis from "../pages/TrendAnalysis";
 import ManualLHTFenceng from "../pages/ManualLHTFenceng";
 import { createBrowserRouter } from 'react-router-dom';
 import FingerprintPage from '../pages/Fingerprint';
-import Traceability from "../Traceability";
+import Traceability from "../components/Traceability";
+import TraceabilityModel from "../components/TraceabilityModel";
+import PollutionSourceFrame from '../pages/PollutionSource/PollutionSourceFrame';
+import EmergencyFrame from '../pages/Emergency/EmergencyFrame';
 
 const Router = () => {
   // 判断是否已登录或处于调试模式
@@ -55,9 +58,10 @@ const Router = () => {
           <Route path="auto-site/:stationId" element={<MonitoringPage />} />
           <Route path="manual-site/:stationId" element={<MonitoringPage />} />
           <Route path="pred-site/:stationId" element={<MonitoringPage />} />
+          <Route path="model-visualization" element={<TraceabilityModel />} />
           <Route path="trend-analysis" element={<TrendAnalysis />} />
           <Route path="prediction" element={<div>预测数据管理</div>} />
-          <Route path="dynamic-path" element={<video src="/dynamic.mkv" controls={false} loop={true} autoPlay={true}></video>} />
+          <Route path="dynamic-path" element={<video src="/dynamic.mp4" controls={false} loop={true} autoPlay={true} style={{width: "100%"}}/>} />
           <Route path="traceability-model" element={<Traceability />} />
           <Route path="source" element={<SourceManagement />}>
             <Route path="fingerprint" element={<FingerprintPage />} />
@@ -68,8 +72,10 @@ const Router = () => {
             <Route path="fingerprint-type-3" element={<FingerprintPage />} />
           </Route>
           <Route path="pollution" element={<PollutionManagement />} />
+          <Route path="pollution-source/:type" element={<PollutionSourceFrame />} />
           <Route path="report" element={<div>工作报告生成</div>} />
           <Route path="emergency" element={<EmergencyManagement />} />
+          <Route path="emergency/:type" element={<EmergencyFrame />} />
           <Route path="users" element={<UserManagement />} />
           <Route path="profile" element={<Profile />} />
           <Route path="settings" element={<Settings />} />

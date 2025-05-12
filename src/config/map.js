@@ -9,7 +9,6 @@ const mapConfig = {
         'AMap.MapType',
         'AMap.Geolocation',
         'AMap.Weather',
-        'AMap.HawkEye'
     ],
     // 默认地图中心点（中国中心）
     DEFAULT_CENTER: [109.95, 33.85],
