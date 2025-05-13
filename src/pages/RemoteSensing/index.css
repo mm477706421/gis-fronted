@@ -1,0 +1,54 @@
+.remoteSensing {
+    padding: 24px;
+    background: #fff;
+    min-height: 100vh;
+}
+
+.remoteSensing .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.remoteSensing .header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.table {
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.table :global(.ant-table-thead > tr > th) {
+    background: #fafafa;
+    font-weight: 500;
+}
+
+.table :global(.ant-table-tbody > tr:hover > td) {
+    background: #f5f5f5;
+}
+
+.actionButton {
+    padding: 4px 8px;
+}
+
+.actionButton:hover {
+    background: #f0f0f0;
+}
+
+.modal {
+    max-width: 600px;
+}
+
+.modal :global(.ant-form-item) {
+    margin-bottom: 24px;
+}
+
+.modal :global(.ant-input),
+.modal :global(.ant-select) {
+    width: 100%;
+}

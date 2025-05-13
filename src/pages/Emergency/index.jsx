@@ -12,6 +12,7 @@ const EmergencyManagement = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [editingItem, setEditingItem] = useState(null);
+  const [data, setData] = useState([]);
 
   const siteColumns = [
     {
@@ -116,24 +117,44 @@ const EmergencyManagement = () => {
 
   const personnelColumns = [
     {
-      title: '姓名',
-      dataIndex: 'name',
-      key: 'name',
+      title: '检查组',
+      dataIndex: 'inspection_team',
+      key: 'inspection_team',
     },
     {
-      title: '职位',
-      dataIndex: 'position',
-      key: 'position',
+      title: '组长',
+      dataIndex: 'group_leader',
+      key: 'group_leader',
     },
     {
-      title: '联系电话',
-      dataIndex: 'phone',
-      key: 'phone',
+      title: '技术组',
+      dataIndex: 'technical_team',
+      key: 'technical_team',
     },
     {
-      title: '负责区域',
-      dataIndex: 'area',
-      key: 'area',
+      title: '人员属性',
+      dataIndex: 'personnel_attribute',
+      key: 'personnel_attribute',
+    },
+    {
+      title: '联系方式',
+      dataIndex: 'contact_information',
+      key: 'contact_information',
+    },
+    {
+      title: '人员姓名',
+      dataIndex: 'personnel',
+      key: 'personnel',
+    },
+    {
+      title: '部门',
+      dataIndex: 'department',
+      key: 'department',
+    },
+    {
+      title: '执法组',
+      dataIndex: 'enforcement_team',
+      key: 'enforcement_team',
     },
     {
       title: '操作',
@@ -170,10 +191,16 @@ const EmergencyManagement = () => {
 
   const handleDelete = async (id) => {
     try {
-      // TODO: 调用删除API
+      const response = await fetch(`http://127.0.0.1:8080/api/emergency_personnel_management/delete/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('删除失败');
+      }
       message.success('删除成功');
       fetchData();
     } catch (error) {
+      console.error('删除失败:', error);
       message.error('删除失败');
     }
   };
@@ -181,66 +208,88 @@ const EmergencyManagement = () => {
   const handleModalOk = async () => {
     try {
       const values = await form.validateFields();
-      if (editingItem) {
-        // TODO: 调用更新API
-        message.success('更新成功');
+      if (activeTab === 'personnel') {
+        if (editingItem) {
+          const response = await fetch('http://127.0.0.1:8080/api/emergency_personnel_management/update', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ ...editingItem, ...values }),
+          });
+          if (!response.ok) {
+            throw new Error('更新失败');
+          }
+          message.success('更新成功');
+        } else {
+          const response = await fetch('http://127.0.0.1:8080/api/emergency_personnel_management/add', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(values),
+          });
+          if (!response.ok) {
+            throw new Error('新增失败');
+          }
+          message.success('新增成功');
+        }
       } else {
-        // TODO: 调用创建API
-        message.success('创建成功');
+        // 其他标签页的处理逻辑保持不变
+        message.success(editingItem ? '更新成功' : '创建成功');
       }
       setModalVisible(false);
       form.resetFields();
       setEditingItem(null);
       fetchData();
     } catch (error) {
-      console.error('表单验证失败:', error);
+      console.error('操作失败:', error);
+      message.error('操作失败');
     }
   };
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      // TODO: 调用获取数据API
-      const mockData = {
-        site: [
-          {
-            id: 1,
-            name: '站点一',
-            type: '自动监测',
-            location: '位置1',
-            manager: '张三',
-            phone: '13800138000',
-          },
-        ],
-        medication: [
-          {
-            id: 1,
-            name: '加药点一',
-            type: '药剂A',
-            location: '位置1',
-            stock: '100kg',
-          },
-        ],
-        personnel: [
-          {
-            id: 1,
-            name: '李四',
-            position: '应急组长',
-            phone: '13800138001',
-            area: '区域1',
-          },
-        ],
-      };
-      // 根据当前标签页设置数据
-      setData(mockData[activeTab] || []);
+      if (activeTab === 'personnel') {
+        const response = await fetch('http://127.0.0.1:8080/api/emergency_personnel_management/list');
+        if (!response.ok) {
+          throw new Error('获取数据失败');
+        }
+        const result = await response.json();
+        setData(result);
+      } else {
+        // 其他标签页的模拟数据保持不变
+        const mockData = {
+          site: [
+            {
+              id: 1,
+              name: '站点一',
+              type: '自动监测',
+              location: '位置1',
+              manager: '张三',
+              phone: '13800138000',
+            },
+          ],
+          medication: [
+            {
+              id: 1,
+              name: '加药点一',
+              type: '药剂A',
+              location: '位置1',
+              stock: '100kg',
+            },
+          ],
+        };
+        setData(mockData[activeTab] || []);
+      }
     } catch (error) {
+      console.error('获取数据失败:', error);
       message.error('获取数据失败');
     } finally {
       setLoading(false);
     }
   };
-
-  const [data, setData] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -270,7 +319,11 @@ const EmergencyManagement = () => {
         <Button
           type="primary"
           icon={<PlusOutlined />}
-          onClick={() => setModalVisible(true)}
+          onClick={() => {
+            setEditingItem(null);
+            form.resetFields();
+            setModalVisible(true);
+          }}
         >
           添加
         </Button>
@@ -299,6 +352,13 @@ const EmergencyManagement = () => {
             dataSource={data}
             rowKey="id"
             loading={loading}
+            scroll={{ x: 1500 }}
+            pagination={{
+              defaultPageSize: 10,
+              showSizeChanger: true,
+              showQuickJumper: true,
+              showTotal: (total) => `共 ${total} 条数据`,
+            }}
           />
         </TabPane>
       </Tabs>
@@ -312,6 +372,7 @@ const EmergencyManagement = () => {
           form.resetFields();
           setEditingItem(null);
         }}
+        destroyOnClose
       >
         <Form
           form={form}
@@ -397,30 +458,61 @@ const EmergencyManagement = () => {
           {activeTab === 'personnel' && (
             <>
               <Form.Item
-                name="name"
-                label="姓名"
-                rules={[{ required: true, message: '请输入姓名' }]}
+                name="inspection_team"
+                label="检查组"
+                rules={[{ required: true, message: '请输入检查组' }]}
               >
                 <Input />
               </Form.Item>
               <Form.Item
-                name="position"
-                label="职位"
-                rules={[{ required: true, message: '请输入职位' }]}
+                name="group_leader"
+                label="组长"
+                rules={[{ required: true, message: '请输入组长' }]}
               >
                 <Input />
               </Form.Item>
               <Form.Item
-                name="phone"
-                label="联系电话"
-                rules={[{ required: true, message: '请输入联系电话' }]}
+                name="technical_team"
+                label="技术组"
+                rules={[{ required: true, message: '请输入技术组' }]}
               >
                 <Input />
               </Form.Item>
               <Form.Item
-                name="area"
-                label="负责区域"
-                rules={[{ required: true, message: '请输入负责区域' }]}
+                name="personnel_attribute"
+                label="人员属性"
+                rules={[{ required: true, message: '请选择人员属性' }]}
+              >
+                <Select>
+                  <Option value="全职">全职</Option>
+                  <Option value="兼职">兼职</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item
+                name="contact_information"
+                label="联系方式"
+                rules={[{ required: true, message: '请输入联系方式' }]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name="personnel"
+                label="人员姓名"
+                rules={[{ required: true, message: '请输入人员姓名' }]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name="department"
+                label="部门"
+                rules={[{ required: true, message: '请输入部门' }]}
+              >
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name="enforcement_team"
+                label="执法组"
+                rules={[{ required: true, message: '请输入执法组' }]}
               >
                 <Input />
               </Form.Item>

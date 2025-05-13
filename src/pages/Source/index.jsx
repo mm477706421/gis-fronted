@@ -188,30 +188,11 @@ const SourceManagement = () => {
   return (
     <div className={styles.sourceManagement}>
       <div className={styles.header}>
-        <h2>溯源管理</h2>
-        <Button
-          type="primary"
-          icon={<PlusOutlined />}
-          onClick={() => setModalVisible(true)}
-        >
-          添加
-        </Button>
+        <h2>指纹图谱</h2>
       </div>
 
-      <Tabs activeKey={activeTab} onChange={handleTabChange}>
-        <TabPane tab="遥感溯源" key="remote">
-          <Table
-            columns={getColumns()}
-            dataSource={data}
-            rowKey="id"
-            loading={loading}
-          />
-        </TabPane>
-        <TabPane tab="指纹图谱溯源" key="fingerprint">
-          <Outlet />
-        </TabPane>
-      </Tabs>
 
+      <Outlet />
       <Modal
         title={editingItem ? '编辑' : '添加'}
         open={modalVisible}

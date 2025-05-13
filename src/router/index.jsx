@@ -20,6 +20,7 @@ import Traceability from "../components/Traceability";
 import TraceabilityModel from "../components/TraceabilityModel";
 import PollutionSourceFrame from '../pages/PollutionSource/PollutionSourceFrame';
 import EmergencyFrame from '../pages/Emergency/EmergencyFrame';
+import RemoteSensingFrame from '../pages/RemoteSensing/RemoteSensingFrame';
 
 const Router = () => {
   // 判断是否已登录或处于调试模式
@@ -79,6 +80,7 @@ const Router = () => {
           <Route path="users" element={<UserManagement />} />
           <Route path="profile" element={<Profile />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="remote-sensing/:type" element={<RemoteSensingFrame />} />
         </Route>
       </Routes>
     </BrowserRouter>

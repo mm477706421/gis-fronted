@@ -24,16 +24,97 @@
 .layerControl {
     position: absolute;
     top: 20px;
-    right: 20px;
-    z-index: 1;
-    background: white;
-    padding: 10px;
-    border-radius: 4px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 16px;
+    border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    min-width: 200px;
 }
 
+.controlGroup {
+    margin-bottom: 16px;
+}
 
-/* 地图标记点样式 */
+.controlGroup:last-child {
+    margin-bottom: 0;
+}
+
+.controlTitle {
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 14px;
+}
+
+.controlGroup .ant-checkbox-wrapper {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.controlGroup .ant-checkbox-wrapper:last-child {
+    margin-bottom: 0;
+}
+
+.dataTabs {
+    margin-top: 16px;
+}
+
+.dataTabs :global(.ant-tabs-nav) {
+    margin-bottom: 16px;
+}
+
+.dataTabs :global(.ant-tabs-tab) {
+    padding: 8px 16px;
+}
+
+.dataTabs :global(.ant-table) {
+    background: #fff;
+    border-radius: 4px;
+}
+
+.dataTabs :global(.ant-table-thead > tr > th) {
+    background: #fafafa;
+    font-weight: 500;
+}
+
+.dataTabs :global(.ant-table-tbody > tr:hover > td) {
+    background: #f5f5f5;
+}
+
+.dataTabs :global(.ant-descriptions) {
+    margin-bottom: 20px;
+}
+
+.dataTabs :global(.ant-descriptions-item-label) {
+    width: 120px;
+    color: #666;
+}
+
+.dataTabs :global(.ant-descriptions-item-content) {
+    color: #333;
+}
+
+:global(.l7-marker) {
+    cursor: pointer;
+}
+
+:global(.l7-popup) {
+    z-index: 1000;
+}
+
+.customContentMarker {
+    position: relative;
+    width: 28px;
+    height: 40px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.customContentMarker:hover {
+    transform: scale(1.1);
+}
 
 .marker {
     background-color: #1890ff;
@@ -100,18 +181,6 @@
     background: white;
 }
 
-.customContentMarker {
-    position: relative;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-}
-
-.customContentMarker img {
-    width: 100%;
-    height: 100%;
-}
-
 .closeBtn {
     position: absolute;
     top: -6px;
@@ -130,51 +199,4 @@
 
 .closeBtn:hover {
     background: #666;
-}
-
-.dataTabs {
-    margin-top: 20px;
-}
-
-.dataTabs :global(.ant-tabs-nav) {
-    margin-bottom: 16px;
-}
-
-.dataTabs :global(.ant-tabs-tab) {
-    padding: 8px 16px;
-}
-
-.dataTabs :global(.ant-table) {
-    background: #fff;
-    border-radius: 4px;
-}
-
-.dataTabs :global(.ant-table-thead > tr > th) {
-    background: #fafafa;
-    font-weight: 500;
-}
-
-.dataTabs :global(.ant-table-tbody > tr:hover > td) {
-    background: #f5f5f5;
-}
-
-.dataTabs :global(.ant-descriptions) {
-    margin-bottom: 20px;
-}
-
-.dataTabs :global(.ant-descriptions-item-label) {
-    width: 120px;
-    color: #666;
-}
-
-.dataTabs :global(.ant-descriptions-item-content) {
-    color: #333;
-}
-
-:global(.l7-marker) {
-    cursor: pointer;
-}
-
-:global(.l7-popup) {
-    z-index: 1000;
 }

@@ -1,0 +1,50 @@
+/* FileManagerTable 样式 */
+
+.fileManagerTable {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-top: 8px;
+}
+
+.fileManagerTable .ant-table-thead>tr>th {
+    background: #f5f7fa;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.fileManagerTable .ant-table-tbody>tr>td {
+    font-size: 14px;
+}
+
+.fileManagerTable .ant-btn-link {
+    padding: 0 4px;
+}
+
+.fileManagerTable .ant-btn-link[title="删除"] {
+    color: #ff4d4f;
+}
+
+.fileManagerTable .ant-btn-link[title="下载"] {
+    color: #1890ff;
+}
+
+.fileManagerTable .ant-btn-link[title="下载"]:hover {
+    color: #40a9ff;
+}
+
+.fileManagerTable .ant-btn-link[title="删除"]:hover {
+    color: #ff7875;
+}
+
+.fileManagerTable .ant-progress {
+    margin-bottom: 8px;
+}
+
+.fileManagerTable .ant-breadcrumb {
+    font-size: 15px;
+}
+
+.fileManagerTable .ant-upload {
+    margin-left: 8px;
+}

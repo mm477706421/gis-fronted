@@ -204,13 +204,6 @@ const MainLayout = () => {
                         label: '监测数据管理',
                         children: [
                             {
-                                key: 'lht-monitoring',
-                                label: 'LHT站点',
-                                children: [
-                                    {key: 'manual-lht-fenceng', label: '分层数据'},
-                                ],
-                            },
-                            {
                                 key: 'auto-monitoring',
                                 label: '自动监测站点',
                                 children: [
@@ -247,6 +240,13 @@ const MainLayout = () => {
                                 ],
                             },
                             {
+                                key: 'lht-monitoring',
+                                label: 'LHT站点',
+                                children: [
+                                    {key: 'manual-lht-fenceng', label: '分层数据'},
+                                ],
+                            },
+                            {
                                 key: 'data-analysis',
                                 label: '数据分析',
                                 children: [
@@ -277,10 +277,10 @@ const MainLayout = () => {
                                 key: 'remote-sensing',
                                 label: '遥感监测信息',
                                 children: [
-                                    {key: 'data-integration', label: '多元数据整合'},
-                                    {key: 'meteorological-data', label: '气象数据'},
+                                    {key: 'remote-sensing/data-integration', label: '多元数据整合'},
+                                    {key: 'remote-sensing/meteorological-data', label: '气象数据'},
                                     {key: 'model-visualization', label: '遥感监测模型可视化'},
-                                    {key: 'water-quality', label: '遥感水质监测数据'},
+                                    {key: 'remote-sensing/water-quality', label: '遥感水质监测数据'},
                                 ],
                             },
                             {
@@ -303,6 +303,18 @@ const MainLayout = () => {
                                 ],
                             },
                         ],
+                    },
+                    {
+                        key: 'fingerprint',
+                        icon: <ExperimentOutlined />,
+                        label: '指纹图谱',
+                        children: [
+                            {
+                                key: 'fingerprint-analysis',
+                                label: '图谱分析',
+                                path: '/fingerprint/analysis'
+                            }
+                        ]
                     },
                     {
                         key: 'pollution',
@@ -373,6 +385,8 @@ const MainLayout = () => {
             navigate(`/${key}`);
         } else if (key.startsWith('emergency/')) {
             navigate(`/${key}`);
+        } else if (key.startsWith('remote-sensing/')) {
+            navigate(`/${key}`);
         } else {
             navigate(`/${key}`);
         }
@@ -426,23 +440,30 @@ const MainLayout = () => {
                         </Space>
                     </div>
                 </Header>
-                <Content style={{margin: '24px 16px', padding: 24, background: colorBgContainer, borderRadius: borderRadiusLG}}>
-                    <Tabs
-                        hideAdd
-                        onChange={handleTabChange}
-                        activeKey={activeTab}
-                        type="editable-card"
-                        onEdit={(targetKey, action) => {
-                            if (action === 'remove') {
-                                handleTabClose(targetKey, { stopPropagation: () => {} });
-                            }
-                        }}
-                        items={tabs.map(tab => ({
-                            key: tab.key,
-                            label: tab.label,
-                            closable: tabs.length > 1,
-                        }))}
-                    />
+                <Content style={{
+                    margin: (location.pathname === '/gis' || location.pathname === '/dynamic-path') ? 0 : '24px 16px',
+                    padding: (location.pathname === '/gis' || location.pathname === '/dynamic-path') ? 0 : 24,
+                    background: colorBgContainer,
+                    borderRadius: borderRadiusLG
+                }}>
+                    {(location.pathname !== '/gis' && location.pathname !== '/dynamic-path') && (
+                        <Tabs
+                            hideAdd
+                            onChange={handleTabChange}
+                            activeKey={activeTab}
+                            type="editable-card"
+                            onEdit={(targetKey, action) => {
+                                if (action === 'remove') {
+                                    handleTabClose(targetKey, { stopPropagation: () => {} });
+                                }
+                            }}
+                            items={tabs.map(tab => ({
+                                key: tab.key,
+                                label: tab.label,
+                                closable: tabs.length > 1,
+                            }))}
+                        />
+                    )}
                     <Outlet/>
                 </Content>
             </Layout>
